@@ -1,0 +1,228 @@
+
+.recent-properties-section {
+  width: 100%;
+  padding: 70px 0;
+  background: #f8fafc;
+}
+
+.recent-properties-container {
+  width: min(1200px, calc(100% - 40px));
+  margin: 0 auto;
+}
+
+.recent-properties-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 30px;
+}
+
+.recent-properties-label {
+  display: inline-block;
+  margin-bottom: 8px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+  color: #0054a6;
+}
+
+.recent-properties-header h2 {
+  margin: 0;
+  font-size: 32px;
+  line-height: 1.2;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.recent-properties-header p {
+  margin: 9px 0 0;
+  color: #64748b;
+  font-size: 15px;
+}
+
+.recent-view-all {
+  flex-shrink: 0;
+  border: 1px solid #dbe3ec;
+  background: #ffffff;
+  color: #0054a6;
+  padding: 11px 18px;
+  border-radius: 9px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.recent-view-all:hover {
+  background: #0054a6;
+  color: #ffffff;
+  border-color: #0054a6;
+}
+
+.recent-properties-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+
+.recent-property-card {
+  overflow: hidden;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  box-shadow: 0 5px 20px rgba(15, 23, 42, 0.06);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.recent-property-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 14px 35px rgba(15, 23, 42, 0.12);
+}
+
+.recent-property-image-wrapper {
+  position: relative;
+  height: 220px;
+  overflow: hidden;
+}
+
+.recent-property-image {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  transition: transform 0.35s ease;
+}
+
+.recent-property-card:hover .recent-property-image {
+  transform: scale(1.05);
+}
+
+.recent-property-badge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  background: #ffffff;
+  color: #0f172a;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
+.recent-verified {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  background: #0f766e;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.recent-property-content {
+  padding: 19px;
+}
+
+.recent-property-price {
+  margin-bottom: 7px;
+  color: #0054a6;
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.recent-property-content h3 {
+  margin: 0;
+  color: #0f172a;
+  font-size: 17px;
+  line-height: 1.4;
+  font-weight: 750;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.recent-property-location {
+  margin: 9px 0 14px;
+  color: #64748b;
+  font-size: 13px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.recent-property-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #edf1f5;
+}
+
+.recent-property-details span {
+  padding: 6px 8px;
+  border-radius: 6px;
+  background: #f8fafc;
+  color: #475569;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.recent-property-button {
+  width: 100%;
+  margin-top: 16px;
+  padding: 11px 15px;
+  border: 0;
+  border-radius: 8px;
+  background: #0054a6;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.recent-property-button:hover {
+  background: #003f7d;
+}
+
+@media (max-width: 900px) {
+  .recent-properties-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .recent-properties-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 600px) {
+  .recent-properties-section {
+    padding: 50px 0;
+  }
+
+  .recent-properties-container {
+    width: min(100% - 24px, 1200px);
+  }
+
+  .recent-properties-header h2 {
+    font-size: 26px;
+  }
+
+  .recent-properties-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .recent-property-image-wrapper {
+    height: 210px;
+  }
+
+  .recent-view-all {
+    width: 100%;
+  }
+}

@@ -1,0 +1,138 @@
+.reports-card {
+  width: 100%;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+.reports-header {
+  margin-bottom: 24px;
+}
+
+.reports-header h2 {
+  margin: 0 0 5px;
+  color: #0f172a;
+  font-size: 22px;
+}
+
+.reports-header p {
+  margin: 0;
+  color: #64748b;
+  font-size: 14px;
+}
+
+.reports-stats {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 14px;
+}
+
+.report-stat {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #f8fafc;
+}
+
+.report-stat-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #eff6ff;
+  color: #0054a6;
+  font-size: 19px;
+}
+
+.report-stat strong {
+  display: block;
+  color: #0f172a;
+  font-size: 20px;
+}
+
+.report-stat div span {
+  display: block;
+  margin-top: 2px;
+  color: #64748b;
+  font-size: 11px;
+}
+
+.reports-section {
+  margin-top: 30px;
+}
+
+.reports-section h3 {
+  margin: 0 0 18px;
+  color: #0f172a;
+  font-size: 17px;
+}
+
+.category-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.category-row {
+  display: grid;
+  grid-template-columns: 150px 1fr 40px;
+  align-items: center;
+  gap: 12px;
+  color: #475569;
+  font-size: 13px;
+}
+
+.category-row > span {
+  text-transform: capitalize;
+}
+
+.category-progress {
+  height: 9px;
+  overflow: hidden;
+  border-radius: 20px;
+  background: #e2e8f0;
+}
+
+.category-progress-fill {
+  height: 100%;
+  border-radius: 20px;
+  background: #0054a6;
+}
+
+.category-row strong {
+  text-align: right;
+  color: #0f172a;
+}
+
+.reports-loading {
+  padding: 50px;
+  text-align: center;
+  color: #64748b;
+}
+
+@media (max-width: 1000px) {
+  .reports-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .reports-card {
+    padding: 16px;
+  }
+
+  .reports-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .category-row {
+    grid-template-columns: 100px 1fr 30px;
+  }
+}

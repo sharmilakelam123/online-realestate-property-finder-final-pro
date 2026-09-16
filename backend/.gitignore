@@ -1,0 +1,42 @@
+import Navbar from "../components/common/Navbar";
+import Footer from "../components/common/Footer";
+
+import SearchBar from "../components/home/SearchBar";
+import FeaturedProperties from "../components/home/FeaturedProperties";
+
+function Home() {
+  return (
+    <>
+      <Navbar />
+
+      {/* Hero Section */}
+      <section
+        className="h-[600px] flex items-center justify-center bg-cover bg-center"
+        style={{
+          backgroundImage:
+            "url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1600')",
+        }}
+      >
+        <div className="bg-black/50 p-10 rounded-xl text-center">
+          <h1 className="text-5xl md:text-6xl text-white font-bold mb-8">
+            Find Your Dream Home
+          </h1>
+
+          <p className="text-white text-lg mb-6">
+            Buy, Sell & Rent Properties Across India
+          </p>
+
+          <SearchBar />
+        </div>
+      </section>
+
+      {/* Featured Properties */}
+      <FeaturedProperties />
+
+      <Footer />
+    </>
+  );
+}
+
+export default Home;
+
