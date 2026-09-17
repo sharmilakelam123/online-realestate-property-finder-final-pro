@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import PropertyCard from "../components/property/PropertyCard";
 
-const API = "http://localhost:5000/api/properties";
+const API = "https://online-realestate-property-finder-final-rdfh.onrender.com/api/properties";
 
 const normalize = (value) =>
   String(value ?? "")
