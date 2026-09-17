@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "http://localhost:5000",
+        target: "https://online-realestate-property-finder-final-rdfh.onrender.com",
         changeOrigin: true,
       },
     },
