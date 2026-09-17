@@ -1,10 +1,13 @@
 import React, { useEffect, useMemo, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import "./Home.css";
 import Reviews from "../components/home/Reviews";
 
-const API = "https://online-realestate-property-finder-final-rdfh.onrender.com/api/properties";
+const API =
+  "https://online-realestate-property-finder-final-rdfh.onrender.com/api/properties";
 
 const fallbackProperties = [];
+
 function formatPrice(price, listingType) {
   if (String(listingType).toLowerCase() === "rent") {
     return `₹ ${Number(price).toLocaleString("en-IN")}/month`;
@@ -155,6 +158,8 @@ function PropertyCard({ property, onOpen }) {
 }
 
 export default function Home() {
+  const navigate = useNavigate();
+
   const [properties, setProperties] =
     useState([]);
 
@@ -166,7 +171,8 @@ export default function Home() {
   const [bhk, setBhk] =
     useState("Any BHK");
 
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] =
+    useState(true);
 
   useEffect(() => {
     const loadAllProperties = async () => {
@@ -179,20 +185,24 @@ export default function Home() {
           throw new Error("API Error");
         }
 
-        const firstData = await firstRes.json();
+        const firstData =
+          await firstRes.json();
 
-        const firstItems = Array.isArray(firstData)
-          ? firstData
-          : firstData?.items ||
-            firstData?.properties ||
-            [];
+        const firstItems =
+          Array.isArray(firstData)
+            ? firstData
+            : firstData?.items ||
+              firstData?.properties ||
+              [];
 
         const totalPages = Math.max(
           1,
           Number(firstData?.pages || 1)
         );
 
-        let allItems = [...firstItems];
+        let allItems = [
+          ...firstItems,
+        ];
 
         for (
           let page = 2;
@@ -207,13 +217,15 @@ export default function Home() {
             continue;
           }
 
-          const pageData = await pageRes.json();
+          const pageData =
+            await pageRes.json();
 
-          const pageItems = Array.isArray(pageData)
-            ? pageData
-            : pageData?.items ||
-              pageData?.properties ||
-              [];
+          const pageItems =
+            Array.isArray(pageData)
+              ? pageData
+              : pageData?.items ||
+                pageData?.properties ||
+                [];
 
           allItems = [
             ...allItems,
@@ -221,34 +233,41 @@ export default function Home() {
           ];
         }
 
-        const realItems = allItems.filter(
-          (property) =>
-            property?._id &&
-            !/^p\d+$/i.test(
-              String(property._id)
-            )
-        );
+        const realItems =
+          allItems.filter(
+            (property) =>
+              property?._id &&
+              !/^p\d+$/i.test(
+                String(property._id)
+              )
+          );
 
-        const uniqueItems = Array.from(
-          new Map(
-            realItems.map((property) => [
-              String(property._id),
-              property,
-            ])
-          ).values()
-        );
+        const uniqueItems =
+          Array.from(
+            new Map(
+              realItems.map(
+                (property) => [
+                  String(property._id),
+                  property,
+                ]
+              )
+            ).values()
+          );
 
         console.log(
           "TOTAL DATABASE PROPERTIES LOADED:",
           uniqueItems.length
         );
 
-        setProperties(uniqueItems);
+        setProperties(
+          uniqueItems
+        );
       } catch (error) {
         console.error(
           "HOME PROPERTY API ERROR:",
           error
         );
+
         setProperties([]);
       } finally {
         setLoading(false);
@@ -276,7 +295,8 @@ export default function Home() {
         }`.toLowerCase();
 
       const locationMatch =
-        !text || combined.includes(text);
+        !text ||
+        combined.includes(text);
 
       const actualType =
         String(
@@ -324,10 +344,18 @@ export default function Home() {
 
       if (mode === "Commercial") {
         modeMatch =
-          actualType.includes("commercial") ||
-          actualType.includes("office") ||
-          actualType.includes("shop") ||
-          actualType.includes("warehouse");
+          actualType.includes(
+            "commercial"
+          ) ||
+          actualType.includes(
+            "office"
+          ) ||
+          actualType.includes(
+            "shop"
+          ) ||
+          actualType.includes(
+            "warehouse"
+          );
       }
 
       let budgetMatch = true;
@@ -337,41 +365,56 @@ export default function Home() {
           Number(p.price) < 5000000;
       }
 
-      if (budget === "₹50 L - ₹1 Cr") {
+      if (
+        budget ===
+        "₹50 L - ₹1 Cr"
+      ) {
         budgetMatch =
-          Number(p.price) >= 5000000 &&
-          Number(p.price) <= 10000000;
+          Number(p.price) >=
+            5000000 &&
+          Number(p.price) <=
+            10000000;
       }
 
-      if (budget === "Above ₹1 Cr") {
+      if (
+        budget === "Above ₹1 Cr"
+      ) {
         budgetMatch =
-          Number(p.price) > 10000000;
+          Number(p.price) >
+          10000000;
       }
 
       let bhkMatch = true;
 
       const bedrooms = Number(
-        p.bedrooms ?? p.bhk ?? 0
+        p.bedrooms ??
+          p.bhk ??
+          0
       );
 
       if (bhk === "1 BHK") {
-        bhkMatch = bedrooms === 1;
+        bhkMatch =
+          bedrooms === 1;
       }
 
       if (bhk === "2 BHK") {
-        bhkMatch = bedrooms === 2;
+        bhkMatch =
+          bedrooms === 2;
       }
 
       if (bhk === "3 BHK") {
-        bhkMatch = bedrooms === 3;
+        bhkMatch =
+          bedrooms === 3;
       }
 
       if (bhk === "4 BHK") {
-        bhkMatch = bedrooms === 4;
+        bhkMatch =
+          bedrooms === 4;
       }
 
       if (bhk === "5+ BHK") {
-        bhkMatch = bedrooms >= 5;
+        bhkMatch =
+          bedrooms >= 5;
       }
 
       return (
@@ -391,18 +434,22 @@ export default function Home() {
     bhk,
   ]);
 
-  const openProperty = (property) => {
+  const openProperty = (
+    property
+  ) => {
     localStorage.setItem(
       "selectedProperty",
       JSON.stringify(property)
     );
 
-    window.location.href =
-      `/property/${property._id}`;
+    navigate(
+      `/property/${property._id}`
+    );
   };
 
   const handleSearch = () => {
-    const params = new URLSearchParams();
+    const params =
+      new URLSearchParams();
 
     if (search.trim()) {
       params.set(
@@ -412,23 +459,38 @@ export default function Home() {
     }
 
     if (mode) {
-      params.set("purpose", mode);
+      params.set(
+        "purpose",
+        mode
+      );
     }
 
     if (type !== "All") {
-      params.set("type", type);
+      params.set(
+        "type",
+        type
+      );
     }
 
-    if (budget !== "Any Budget") {
-      params.set("budget", budget);
+    if (
+      budget !== "Any Budget"
+    ) {
+      params.set(
+        "budget",
+        budget
+      );
     }
 
     if (bhk !== "Any BHK") {
-      params.set("bhk", bhk);
+      params.set(
+        "bhk",
+        bhk
+      );
     }
 
-    window.location.href =
-      `/search-results?${params.toString()}`;
+    navigate(
+      `/search-results?${params.toString()}`
+    );
   };
 
   const clearFilters = () => {
@@ -452,10 +514,11 @@ export default function Home() {
     <div className="real-finder">
 
       {/* NAVBAR */}
+
       <header className="rf-navbar">
 
-        <a
-          href="/"
+        <Link
+          to="/"
           className="rf-logo"
         >
           <span className="logo-mark">
@@ -471,70 +534,68 @@ export default function Home() {
               Property Intelligence
             </small>
           </div>
-        </a>
+        </Link>
 
         <nav className="main-nav">
 
-          <a
+          <Link
             className="active"
-            href="/"
+            to="/"
           >
             Home
-          </a>
+          </Link>
 
-          <a href="/buy">
+          <Link to="/buy">
             Buy
-          </a>
+          </Link>
 
-          <a href="/rent">
+          <Link to="/rent">
             Rent
-          </a>
+          </Link>
 
-          <a href="/sell">
+          <Link to="/sell">
             Sell
-          </a>
+          </Link>
 
-          <a href="/new-projects">
+          <Link to="/new-projects">
             New Projects
-          </a>
+          </Link>
 
-          <a href="/visit-history">
+          <Link to="/visit-history">
             My Visits
-          </a>
-          {/* PLOTS & LAND REMOVED */}
+          </Link>
 
         </nav>
 
         <div className="nav-actions">
 
-          <a
-            href="/add-property"
+          <Link
+            to="/add-property"
             className="post-btn"
           >
             + Post Property Free
-          </a>
+          </Link>
 
-          {/* ADMIN ADDED NEXT TO POST PROPERTY */}
-
-          <a
-            href="/admin"
+          <Link
+            to="/admin"
             className="admin-nav-link"
           >
             Admin
-          </a>
+          </Link>
 
-          <a
-            href="/login"
+          <Link
+            to="/login"
             className="login-btn"
           >
             Login
-          </a>
+          </Link>
 
         </div>
 
       </header>
 
       {/* HERO */}
+
       <section className="hero-section">
 
         <div className="hero-overlay"></div>
@@ -554,9 +615,9 @@ export default function Home() {
           </h1>
 
           <p>
-            Discover verified homes, plots, rentals
-            and new projects with transparent
-            property information.
+            Discover verified homes, plots,
+            rentals and new projects with
+            transparent property information.
           </p>
 
           <div className="search-panel">
@@ -630,14 +691,29 @@ export default function Home() {
                       )
                     }
                   >
-                    <option>All</option>
-                    <option>Apartment</option>
-                    <option>Villa</option>
+                    <option>
+                      All
+                    </option>
+
+                    <option>
+                      Apartment
+                    </option>
+
+                    <option>
+                      Villa
+                    </option>
+
                     <option>
                       Independent House
                     </option>
-                    <option>Plot</option>
-                    <option>Commercial</option>
+
+                    <option>
+                      Plot
+                    </option>
+
+                    <option>
+                      Commercial
+                    </option>
                   </select>
 
                 </div>
@@ -720,6 +796,7 @@ export default function Home() {
                     <option>
                       5+ BHK
                     </option>
+
                   </select>
 
                 </div>
@@ -758,6 +835,7 @@ export default function Home() {
       </section>
 
       {/* QUICK NAV */}
+
       <div className="quick-nav">
 
         <button
@@ -817,6 +895,7 @@ export default function Home() {
       <main className="home-main">
 
         {/* RECOMMENDED PROPERTIES */}
+
         <section
           className="section-block"
           id="properties"
@@ -897,6 +976,7 @@ export default function Home() {
         </section>
 
         {/* POST PROPERTY BANNER */}
+
         <section className="post-property-banner">
 
           <div className="post-property-content">
@@ -906,15 +986,16 @@ export default function Home() {
             </h2>
 
             <p>
-              Your perfect buyer is waiting, list your property now
+              Your perfect buyer is waiting,
+              list your property now
             </p>
 
-            <a
-              href="/add-property"
+            <Link
+              to="/add-property"
               className="post-property-button"
             >
               Post Property, It's FREE
-            </a>
+            </Link>
 
             <a
               href="https://wa.me/919999999999"
@@ -940,6 +1021,7 @@ export default function Home() {
         </section>
 
         {/* POPULAR CITIES */}
+
         <section className="section-block">
 
           <div className="section-heading">
@@ -1036,6 +1118,7 @@ export default function Home() {
         </section>
 
         {/* HIGH TRUST SCORE PROPERTIES */}
+
         <section
           className="section-block"
           id="verified"
@@ -1086,6 +1169,7 @@ export default function Home() {
         </section>
 
         {/* 50 REAL DATABASE PROPERTIES */}
+
         <section
           className="section-block"
           id="real-properties"
@@ -1104,8 +1188,9 @@ export default function Home() {
               </h2>
 
               <p>
-                Real houses, villas, apartments, plots and
-                commercial properties from our database.
+                Real houses, villas, apartments,
+                plots and commercial properties
+                from our database.
               </p>
 
             </div>
@@ -1150,17 +1235,19 @@ export default function Home() {
                 </h3>
 
                 <p>
-                  Please check the database connection and
-                  try again.
+                  Please check the database
+                  connection and try again.
                 </p>
 
               </div>
             )}
 
         </section>
-         <Reviews />
+
+        <Reviews />
 
         {/* OWNER CTA */}
+
         <section className="owner-cta">
 
           <div>
@@ -1182,23 +1269,24 @@ export default function Home() {
 
           </div>
 
-          <a href="/post-property">
+          <Link to="/post-property">
             Post Property Free →
-          </a>
+          </Link>
 
         </section>
 
       </main>
 
       {/* FOOTER */}
+
       <footer className="rf-footer">
 
         <div className="footer-main">
 
           <div className="footer-brand">
 
-            <a
-              href="/"
+            <Link
+              to="/"
               className="rf-logo footer-logo"
             >
 
@@ -1218,7 +1306,7 @@ export default function Home() {
 
               </div>
 
-            </a>
+            </Link>
 
             <p>
               Making property discovery more
@@ -1234,21 +1322,21 @@ export default function Home() {
               For Buyers
             </h4>
 
-            <a href="/buy">
+            <Link to="/buy">
               Buy Property
-            </a>
+            </Link>
 
-            <a href="/new-projects">
+            <Link to="/new-projects">
               New Projects
-            </a>
+            </Link>
 
-            <a href="/plots-land">
+            <Link to="/plots-land">
               Plots & Land
-            </a>
+            </Link>
 
-            <a href="/shortlisted">
+            <Link to="/shortlisted">
               Shortlisted
-            </a>
+            </Link>
 
           </div>
 
@@ -1258,17 +1346,17 @@ export default function Home() {
               For Tenants
             </h4>
 
-            <a href="/rent">
+            <Link to="/rent">
               Rent Property
-            </a>
+            </Link>
 
-            <a href="/rent">
+            <Link to="/rent">
               Rental Homes
-            </a>
+            </Link>
 
-            <a href="/rent">
+            <Link to="/rent">
               PG & Shared
-            </a>
+            </Link>
 
           </div>
 
@@ -1278,17 +1366,17 @@ export default function Home() {
               For Owners
             </h4>
 
-            <a href="/post-property">
+            <Link to="/post-property">
               Post Property
-            </a>
+            </Link>
 
-            <a href="/sell">
+            <Link to="/sell">
               Sell Property
-            </a>
+            </Link>
 
-            <a href="/contact">
+            <Link to="/contact">
               Owner Support
-            </a>
+            </Link>
 
           </div>
 
@@ -1298,17 +1386,17 @@ export default function Home() {
               Dealers & Builders
             </h4>
 
-            <a href="/post-property">
+            <Link to="/post-property">
               List Project
-            </a>
+            </Link>
 
-            <a href="/commercial">
+            <Link to="/commercial">
               Commercial
-            </a>
+            </Link>
 
-            <a href="/contact">
+            <Link to="/contact">
               Business Support
-            </a>
+            </Link>
 
           </div>
 
@@ -1318,21 +1406,21 @@ export default function Home() {
               Company
             </h4>
 
-            <a href="/about">
+            <Link to="/about">
               About Us
-            </a>
+            </Link>
 
-            <a href="/insights">
+            <Link to="/insights">
               Insights
-            </a>
+            </Link>
 
-            <a href="/contact">
+            <Link to="/contact">
               Contact
-            </a>
+            </Link>
 
-            <a href="/privacy">
+            <Link to="/privacy">
               Privacy
-            </a>
+            </Link>
 
           </div>
 
