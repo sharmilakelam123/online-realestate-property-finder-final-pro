@@ -5,7 +5,7 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon server.js",
+    "start": "node server.js",
     "seed:properties": "node seeds/seedProperties.js",
     "seed:properties:200": "node seeds/seedProperties.js --count=200"
   },
