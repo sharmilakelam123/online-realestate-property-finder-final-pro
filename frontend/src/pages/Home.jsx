@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import "./Home.css";
 import Reviews from "../components/home/Reviews";
 
-const API = "http://localhost:5000/api/properties";
+const API = "https://online-realestate-property-finder-final-rdfh.onrender.com/api/properties";
 
 const fallbackProperties = [];
 function formatPrice(price, listingType) {
