@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "https://realestate-pro-2.onrender.com",
+  baseURL: "https://online-realestate-property-finder-final-rdfh.onrender.com",
 });
 
 export default API;
