@@ -350,12 +350,15 @@ function SearchResults() {
       }
 
       /* RENT */
-      if (normalizedPurpose === "rent") {
-        return (
-          listingType.includes("rent") ||
-          listingType.includes("lease")
-        );
-      }
+      if (normalizedPurpose === "buy") {
+  return (
+    !listingType ||
+    listingType.includes("sale") ||
+    listingType.includes("sell") ||
+    listingType.includes("buy") ||
+    listingType.includes("purchase")
+  );
+}
 
       /* NEW PROJECTS */
       if (
